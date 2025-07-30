@@ -1,0 +1,18 @@
+---
+import Hero from '../components/Astro/Hero.astro';
+import TasteDifference from '../components/Astro/TasteDifference.astro';
+import FeaturedMenu from '../components/Astro/FeaturedMenu.astro';
+import Sides from '../components/Astro/Sides.astro';
+import Layout from '../layouts/Layout.astro';
+import Findus from '../components/Astro/Findus.astro';
+---
+
+<Layout>
+    <Hero/>
+    <TasteDifference/>
+    <section  class="py-20 lg:py-32 bg-gradient-to-br from-gray-900 via-black/60 to-gray-800 relative overflow-hidden">
+        <FeaturedMenu/>
+    <Sides/>
+    <Findus/>
+    </section>
+</Layout>

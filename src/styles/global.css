@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../assets/fonts/Poppins-Regular.ttf');
+}
+@font-face {
+    font-family: 'Poppins-Bold';
+    src: url('../assets/fonts/Poppins-Bold.ttf');
+}
+@font-face {
+    font-family: 'Urbanist';
+    src: url('../assets/fonts/Urbanist.ttf');
+}
+*{
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+html {
+    scroll-behavior: smooth;
+}

@@ -1,0 +1,224 @@
+---
+import "../styles/global.css";
+import Header from '../components/React/Header';
+import Foot from '../components/React/Foot';
+import LoadingScreen from '../components/React/LoadingScreen';
+---
+
+<!doctype html>
+<html lang="es" style="scroll-behavior: smooth;">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Big Nigga Burger</title>
+		<link rel="stylesheet" href="../styles/global.css">
+		<link rel="preload" href="/fonts/main-font.woff2" as="font" type="font/woff2" crossorigin>
+	</head>
+	<body class='bg-gray-900'>
+		<LoadingScreen client:load />
+		<div id="main-content" style="opacity: 0; transition: opacity 0.5s ease-in-out;">
+			<Header client:load/>
+			<slot />
+			<Foot client:load/>
+		</div>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		scroll-behavior: smooth;
+	}
+	
+	/* Asegurar que el scroll suave funcione en todos los navegadores */
+	* {
+		scroll-behavior: smooth;
+	}
+	
+	/* Mejorar el scroll suave para enlaces internos */
+	html {
+		scroll-padding-top: 80px; /* Espacio para el header fijo */
+	}
+
+	/* Estilos personalizados para la barra de scroll */
+	/* Para navegadores WebKit (Chrome, Safari, Edge) */
+	::-webkit-scrollbar {
+		width: 12px;
+		background: rgba(26, 26, 26, 0.8);
+	}
+
+	::-webkit-scrollbar-track {
+		background: linear-gradient(180deg, 
+			rgba(26, 26, 26, 0.9) 0%, 
+			rgba(45, 24, 16, 0.8) 50%, 
+			rgba(26, 26, 26, 0.9) 100%);
+		border-radius: 6px;
+		box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: linear-gradient(180deg, 
+			#ff6b35 0%, 
+			#ffa500 30%, 
+			#ff8c42 70%, 
+			#ff6b35 100%);
+		border-radius: 6px;
+		box-shadow: 
+			0 0 15px rgba(255, 107, 53, 0.6),
+			0 0 25px rgba(255, 107, 53, 0.4),
+			inset 0 1px 0 rgba(255, 255, 255, 0.2),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+		border: 1px solid rgba(255, 107, 53, 0.3);
+		transition: all 0.3s ease;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: linear-gradient(180deg, 
+			#ff8c42 0%, 
+			#ffb347 30%, 
+			#ffa500 70%, 
+			#ff6b35 100%);
+		box-shadow: 
+			0 0 20px rgba(255, 107, 53, 0.8),
+			0 0 35px rgba(255, 107, 53, 0.6),
+			0 0 50px rgba(255, 107, 53, 0.3),
+			inset 0 1px 0 rgba(255, 255, 255, 0.3),
+			inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+		transform: scale(1.05);
+	}
+
+	::-webkit-scrollbar-thumb:active {
+		background: linear-gradient(180deg, 
+			#e55a2b 0%, 
+			#ff6b35 50%, 
+			#ffa500 100%);
+		box-shadow: 
+			0 0 25px rgba(255, 107, 53, 1),
+			0 0 40px rgba(255, 107, 53, 0.8),
+			inset 0 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	::-webkit-scrollbar-corner {
+		background: rgba(26, 26, 26, 0.9);
+	}
+
+	/* Para Firefox */
+	html {
+		scrollbar-width: thin;
+		scrollbar-color: #ff6b35 rgba(26, 26, 26, 0.8);
+	}
+
+	/* Animación adicional para el glow */
+	@keyframes scrollbar-glow {
+		0%, 100% {
+			box-shadow: 
+				0 0 15px rgba(255, 107, 53, 0.6),
+				0 0 25px rgba(255, 107, 53, 0.4);
+		}
+		50% {
+			box-shadow: 
+				0 0 20px rgba(255, 107, 53, 0.8),
+				0 0 35px rgba(255, 107, 53, 0.6),
+				0 0 50px rgba(255, 107, 53, 0.3);
+		}
+	}
+
+	/* Aplicar animación de glow sutil */
+	::-webkit-scrollbar-thumb {
+		animation: scrollbar-glow 3s ease-in-out infinite;
+	}
+
+	/* Estilos para dispositivos móviles */
+	@media (max-width: 768px) {
+		::-webkit-scrollbar {
+			width: 8px;
+		}
+		
+		::-webkit-scrollbar-thumb {
+			border-radius: 4px;
+		}
+		
+		::-webkit-scrollbar-track {
+			border-radius: 4px;
+		}
+	}
+
+	/* Mejorar la visibilidad en modo oscuro */
+	@media (prefers-color-scheme: dark) {
+		::-webkit-scrollbar-track {
+			background: linear-gradient(180deg, 
+				rgba(15, 15, 15, 0.95) 0%, 
+				rgba(35, 20, 12, 0.9) 50%, 
+				rgba(15, 15, 15, 0.95) 100%);
+		}
+	}
+</style>
+
+<script>
+	// Script para manejar la carga completa de la página
+	document.addEventListener('DOMContentLoaded', function() {
+		// Función para verificar si todas las fuentes están cargadas
+		function checkFontsLoaded() {
+			return document.fonts.ready;
+		}
+		
+		// Función para verificar si todas las imágenes están cargadas
+		function checkImagesLoaded() {
+			const images = document.querySelectorAll('img');
+			return Promise.all(Array.from(images).map(img => {
+				if (img.complete) return Promise.resolve();
+				return new Promise(resolve => {
+					img.addEventListener('load', resolve);
+					img.addEventListener('error', resolve);
+				});
+			}));
+		}
+		
+		// Esperar a que todo esté cargado
+		Promise.all([
+			new Promise(resolve => window.addEventListener('load', resolve)),
+			checkFontsLoaded(),
+			checkImagesLoaded()
+		]).then(() => {
+			// Esperar un mínimo de tiempo para mostrar la pantalla de carga
+			setTimeout(() => {
+				const loadingScreen = document.getElementById('loading-screen');
+				const mainContent = document.getElementById('main-content');
+				
+				if (loadingScreen) {
+					loadingScreen.style.opacity = '0';
+					loadingScreen.style.transition = 'opacity 0.5s ease-out';
+					
+					setTimeout(() => {
+						loadingScreen.style.display = 'none';
+						if (mainContent) {
+							mainContent.style.opacity = '1';
+						}
+					}, 500);
+				}
+			}, 2500); // Mínimo 2.5 segundos de pantalla de carga
+		});
+		
+		// Mejorar el scroll suave para enlaces internos
+		document.addEventListener('click', function(e) {
+			const target = e.target.closest('a[href^="#"]');
+			if (target) {
+				e.preventDefault();
+				const targetId = target.getAttribute('href').substring(1);
+				const targetElement = document.getElementById(targetId);
+				
+				if (targetElement) {
+					targetElement.scrollIntoView({
+						behavior: 'smooth',
+						block: 'start'
+					});
+				}
+			}
+		});
+	});
+</script>

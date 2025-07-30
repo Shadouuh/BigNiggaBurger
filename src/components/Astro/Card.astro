@@ -1,0 +1,70 @@
+---
+// Card.astro - Componente reutilizable para items del menú
+export interface Props {
+    title: string;
+    subtitle: string;
+    description: string;
+    price: string;
+    image: string;
+    alt: string;
+    featured?: boolean;
+}
+
+const { title, subtitle, description, price, image, alt, featured = false } = Astro.props;
+---
+
+<div class={`group relative bg-gradient-to-br from-gray-800/60 to-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-3xl overflow-hidden hover:border-orange-500/50 transition-all duration-700 hover:scale-[1.02] hover:shadow-2xl hover:shadow-orange-500/10 ${featured ? 'ring-2 ring-orange-500/30' : ''}`}>
+    <!-- Hover overlay effect -->
+    <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+    
+    <!-- Featured badge -->
+    {featured && (
+        <div class="absolute top-4 left-4 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-black text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+            Popular
+        </div>
+    )}
+    
+    <!-- Image container -->
+    <div class="relative h-72 overflow-hidden">
+        <img 
+            src={image}
+            alt={alt}
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+        
+        <!-- Floating elements -->
+        <div class="absolute top-4 right-4 w-8 h-8 bg-orange-500/20 rounded-full blur-sm animate-pulse"></div>
+        <div class="absolute bottom-6 left-6 w-4 h-4 bg-red-500/30 rounded-full blur-sm animate-pulse delay-500"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative p-6 lg:p-8">
+        <!-- Title and subtitle -->
+        <div class="mb-4">
+            <h3 class="text-xl lg:text-2xl text-white mb-1 group-hover:text-orange-100 transition-colors duration-300" style="font-family: 'Poppins-Bold';">
+                {title}
+            </h3>
+            <h4 class="text-lg lg:text-xl text-orange-400 group-hover:text-orange-300 transition-colors duration-300" style="font-family: 'Poppins-Bold';">
+                {subtitle}
+            </h4>
+        </div>
+        
+        <!-- Description -->
+        <p class="text-gray-400 group-hover:text-gray-300 mb-6 leading-relaxed text-sm lg:text-base transition-colors duration-300" style="font-family: 'Poppins';">
+            {description}
+        </p>
+        
+        <!-- Price and button -->
+        <div class="flex justify-between items-center">
+            <span class="text-2xl lg:text-3xl text-orange-400 group-hover:text-orange-300 transition-colors duration-300" style="font-family: 'Poppins-Bold';">
+                {price}
+            </span>
+            
+        </div>
+    </div>
+    
+    <!-- Bottom glow effect -->
+    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-px bg-gradient-to-r from-transparent via-orange-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+</div>
